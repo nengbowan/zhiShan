@@ -30,7 +30,7 @@
                     <archive>
                         <manifest>
                             <!-- 此处指定main方法入口的class -->
-                            <mainClass>net.cqooc.tool.gui.Main</mainClass>
+                            <mainClass>com.fsy.tool.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

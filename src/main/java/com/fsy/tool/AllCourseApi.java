@@ -126,12 +126,6 @@ public class AllCourseApi {
         }
     }
 
-
-
-
-
-
-
     public void getCourseList(){
         String url = "http://www.attop.com/js/ajax/call/plaincall/zsClass.commonAjax.dwr";
         HttpPost post = new HttpPost(url);

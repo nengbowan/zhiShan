@@ -154,7 +154,7 @@ public class Main extends javax.swing.JFrame {
                     System.exit(0);
                 }
 
-                String username = userSplited[0].trim();
+                String username = java.net.URLEncoder.encode(userSplited[0].trim(), "utf-8");;
                 String password = userSplited[1].trim();
                 users.add(UserModelBean.builder()
                         .username(username)

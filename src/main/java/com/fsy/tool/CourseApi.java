@@ -239,13 +239,7 @@ public class CourseApi{
                     print.println("剩余时间：" + sectionName + " " + RemainTime + "");
                     batchId++;
                 }
-                for (int i = 0; i < 15; i++) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                sleep();
                 doPostTime(courseID , courseName , sectionID , sectionName , batchId);
 
             }
@@ -271,11 +265,12 @@ public class CourseApi{
             e.printStackTrace();
         }
         String result = HttpClientUtil.getOrPost(post , client);
-        if (!result.contains("flag:1")) {
-            print.println( "POST时间出错：" + courseName + " " + sectionName + "\n");
-        } else {
-            print.println("挂了15秒：" + sectionName + "\n");
-        }
+        print.println("挂了15秒：" + sectionName + "\n");
+//        if (result.contains("flag:1")) {
+//            print.println( "POST时间出错：" + courseName + " " + sectionName + "\n");
+//        } else {
+//            print.println("挂了15秒：" + sectionName + "\n");
+//        }
     }
 
     /**
@@ -367,7 +362,7 @@ public class CourseApi{
 
             String resp = HttpClientUtil.getOrPost(post , client);
 
-            print.println("该节题库已提交：" + courseName + " " + sectionName );
+            print.println("该节题库已提交：" + (courseName == null ? "" : courseName )  + " " + sectionName );
 
 
         } else {
@@ -445,16 +440,18 @@ public class CourseApi{
         //flag:131 失败 媒体已经评价
         //flag:1 成功
         //flag:0 失败
-        if(resp.contains("flag:131")){
-            print.println("媒体已经评价!");
-        }else if(resp.contains("flag:1")){
-            print.println("媒体评价提交成功");
+        if(resp != null){
+            if(resp.contains("flag:131")){
+                print.println("媒体已经评价!");
+            }else if(resp.contains("flag:1")){
+                print.println("媒体评价提交成功");
+            }
+            else{
+                print.println("媒体评价提交失败,10s后再重试");
+                sleep();
+                doMedia( mediaId, sectionName);
+            }
         }
-        else{
-            print.println("媒体评价提交失败\n返回:"+resp);
-        }
-
-
     }
 
     public int GetRandInt(int m, int n) {
